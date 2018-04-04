@@ -1,0 +1,68 @@
+
+def concat( L1: List[Int], L2: List[Int] ): List[Int] = {
+  L1 match {
+    case List() => L2
+    case x::r => x::concat(r,L2)
+  }
+}
+
+concat( 1::2::Nil, 3::4::Nil)
+
+
+
+
+def concat( L2: List[Int], L1: List[Int] ): List[Int] = {
+  L2 match {
+    case List() => L1
+    case x::r => x::concat(L1,r)
+  }
+}
+
+concat( 1::2::Nil, 3::4::Nil)
+
+
+
+
+
+
+def delete( lista: List[Int], p: Int): List[Int]={
+  def ciclo( l:List[Int]):List[Int]={
+    l match{
+      case Nil => lista
+      case x::r=>
+        p match{
+          case 0 => r
+          case _ => x:: delete(r, p-1)
+        }
+    }
+  }
+  ciclo(lista)
+}
+delete(5::4::3::2::1::Nil, 4)
+
+
+
+//aplanar una lista [5,[5,4],4,[4,[5,4,3]]] => 5,5,4,4,4,5,4,3
+
+
+def aplanar(L: List[Any]): List[Int] = {
+  def ciclo(lista : List[Any], acum: List[Int]): List[Int]=
+    lista match{
+    case Nil => acum
+    case x::r => x match {
+      case n : Int => cilco(r,n::acum)
+      case n : List[Any] => cilo(r, ciclo(n,acum))
+    }
+  }
+  ciclo(L,Nil)
+}
+
+
+
+//funcion que reciba una lista y que elimine las repeticiones de la lista
+ /*
+  * 3,7,3,5,2,8,5,5,4
+  * 3,7,5,2,8,4
+  */
+
+
