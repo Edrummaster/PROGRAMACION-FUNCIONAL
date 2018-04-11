@@ -1,0 +1,193 @@
+/*
+colecciones
+	
+	listas infinitas
+	arreglos
+
+construidas
+
+	nuevos
+	generico
+
+* 
+*/
+
+
+/*-------------------------------------------------------------------*\
+|||||||||||||||||||||||||||||||STREAMS|||||||||||||||||||||||||||||||||
+\*-------------------------------------------------------------------*/
+
+
+def suma( a: Stream[Int], b: Stream[Int]): Stream[Int] = {
+  (a,b) match{
+    case (x1#::r1, x2#::r2) => (x1+x2)#::suma(r1,r2)
+  }
+}
+
+val s1 = Stream.from(5)
+val s2 = Stream.from(3)
+
+suma(s1,s2).take(10).toList
+
+
+
+
+def sumaParejas( s: Stream[Int]):Stream[Int] = {
+  s match{
+    case (x#::r) => sumaParejas.zip(r).map(x=> x._1+x._2)
+  }
+}
+
+
+def fibFrom(a: Int, b: Int): Stream[Int] = a #:: fibFrom(b, 
+a + b)
+
+fibFrom( 5, 5).take(5).toList
+
+
+
+
+
+val factorial : Stream[Int] =
+  1#:: factorial.zip(Stream.from(2)).map(x=> x._1*x._2)
+
+factorial.take(5).toList
+
+
+
+
+
+
+
+
+
+
+
+
+/*-------------------------------------------------------------------*\
+||||||||||||||||||||||||||||||||ARREGLOS|||||||||||||||||||||||||||||||
+\*-------------------------------------------------------------------*/
+
+val v:Array[Int] = new Array[Int](7)
+v(3)=7
+//new(constructor del tipo) + nombre del tipo + tamañoArreglo
+
+
+
+
+def bloquecitos( n : Int) : Array[Double] = {
+  val v : Array[Double] = new Array[Double](n+1)
+  def ciclo (k: Int): Array[Double]= {
+      if(k==n) {v(k) = 0; v} else {v(k) = (ciclo(k+1))(k+1) + 1.0/(2.0*k); v}
+  }
+  ciclo(1)
+}
+bloquecitos(2000)
+
+//SE SE NECESITAN MIL BLOQUES PARA QUE EL BLOQUE SE SALGA 3 UNIDADES DE LA MESA
+
+
+
+
+
+
+
+/*-------------------------------------------------------------------*\
+||||||||||||||||||||TIPOS DEFINIDOS POR EL PROGRAMADOR|||||||||||||||||
+\*-------------------------------------------------------------------*/
+
+--> Para definir un tipo nuevo se usan clases
+   tipo
+   se define un constructor "Racional" para crear elementos de ese tipo
+   los elementos de llaman objetos
+   racional dos componentes
+   se seleccionan con punto
+
+class Racional( x: Int, y:Int){
+  def num =x
+  def den =y
+}
+
+
+val r= new Racional(2,3)
+
+r.num
+r.den
+
+// --> operaciones
+
+class Racional( x: Int, y:Int){
+  def num =x
+  def den =y
+  
+  def suma( r: Racional) = { new Racional ( num*(r.den)+(r.num)* den, den*(r.den) )}
+  def resta (r: Racional) = { new Racional ( num*(r.den)-den*(r.num), den*(r.den) )}
+  def multiplicacion( r: Racional) = { new Racional( num*(r.num), den*(r.den) )}
+  def divide (r: Racional) = {new Racional ( num*(r.den) , den*(r.num) )}
+  
+  private def mcd( a: Int, b: Int) : Int = if( b==0) a else mcd(b, a%b) 
+  private val d = mcd(x,y)
+  def num= x/d
+  def denom = y/d
+  
+  //TAREA:: agregar el negativo del racional, denominador siempre positivo
+}
+
+
+val r1 = new Racional(1,2)
+val r2 = new Racional(3,2)
+val rsum = r1.suma(r2).den
+
+
+
+
+
+
+/*-------------------------------------------------------------------*\			
+|||||||||||||||||||| 			 			ARBOL BINARIO 				|||||||||||||||||
+\*-------------------------------------------------------------------*/
+
+     *
+    ***
+   *****
+  *******
+ *********
+    |||
+    |||
+   
+
+-->   ARBOL: Contiene nodos del mismo tipo, datos del mismo tipo.
+
+//definicion
+
+trait Arbol[+A]{ def valor: A}
+case class Tama[+A](valor: A, izq: Arbol[A], der: Arbol[A]) extends Arbol[A]
+case class Hoja[+A](valor: A) extends Arbol[A]
+
+
+
+// tarit define un tipo de datos generico que no se puede instacnciar directamente
+//case: opciones de arbol, Rama u Hoja
+
+
+
+val h = new Hoja(5)
+h.valor
+
+val a3 = new Rama( 7, new Hoja(1), new Hoja(5) )
+a.der.valor
+
+// dado un arbol sumar elementos de un arbol
+// funcion que dado un arbol retornar profundidad
+// un arbol no necesariamente esta completo, funcion que retorne la profundidad
+
+
+
+a match {
+  hoja(x) => x
+  rama(v,i,d) =>
+}
+
+
+
+
