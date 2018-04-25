@@ -1,0 +1,110 @@
+trait Arbol[+A]{ def valor: A}
+case class Tama[+A](valor: A, izq: Arbol[A], der: Arbol[A]) extends Arbol[A]
+case class Hoja[+A](valor: A) extends Arbol[A]
+
+
+
+// tarit define un tipo de datos generico que no se puede instacnciar directamente
+//case: opciones de arbol, Rama u Hoja
+
+
+
+val h = new Hoja(5)
+h.valor
+
+val a3 = new Rama( 7, new Hoja(1), new Hoja(5) )
+a.der.valor
+
+// dado un arbol sumar elementos de un arbol
+// funcion que dado un arbol retornar profundidad
+// un arbol no necesariamente esta completo, funcion que retorne la profundidad
+
+
+
+a match {
+  hoja(x) => x
+  rama(v,i,d) =>
+}
+
+
+//MEZCLAR LISTAS
+def listas( L1: List[Int], L2: List[Int]):List[Int]={
+  (L1,L2) match{
+    case (Nil,_) => _
+    case (_,Nil) => _
+    case (x1::r1,x2::r2) => if(x1<=x2) x1::mezclar(r1,L2)
+                            else x2::mezclar(L2,r2)
+  }
+}
+
+
+
+
+def mergeSort( l: List[Int]) = {
+  l match{
+    case Nil=> Nil
+    case List(x) => List(x)
+    case x :: r => { val(i,d) = tome(l,(l.lenght/2));
+                     mezclar( mergesort(i), mergesort(d) )}
+    }
+  }
+}
+
+
+
+
+
+
+def ordenLista(l: List[Int]): List[Int] = {
+  l match {
+    case Nil => Nil
+    case x::r => val(a,b) = partir(l)
+                  mezclar(ordenar(a), ordenar(b))
+  }
+}
+
+//=> partir en 2, ordenar sublistas, mezclar
+
+
+
+
+
+//partir toma una lista y la divide en 2
+
+
+
+
+def partir ( l: List[Int], n: Int): (List[Int],List[Int])={
+  A match{
+    case vacio() =>(Vacio(), vacio())
+    case Hoja(v) =>if(v<=x) (Hoja(v),vacio())
+                    else(vacio(), Hoja())
+    case Rama(v,izq,der) if(v==x) => (Rama(v,izq,vacio()),der)
+    case Rama(v,izq,der) if(v<=x) => val (d1,d2) = partir(der,x); (Rama(v,izq,d1),d2)
+    case Rama(v,izq,der) if(v>=x) => val (i1,i2) = partir(izq,x); (i1,Rama(v,i2,der))
+
+  }
+}
+
+
+
+// Mezclar 2 arboles ordenados
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
