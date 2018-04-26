@@ -27,6 +27,16 @@ a match {
 }
 
 
+
+
+abstract class Arbol{}
+case class Hoja(valor:Int) extends Arbol
+case class Rama(valor:Int, izq:Arbol, der: Arbol) extends Arbol
+case class Vacio() extends Arbol
+
+
+
+
 //MEZCLAR LISTAS
 def listas( L1: List[Int], L2: List[Int]):List[Int]={
   (L1,L2) match{
@@ -36,7 +46,6 @@ def listas( L1: List[Int], L2: List[Int]):List[Int]={
                             else x2::mezclar(L2,r2)
   }
 }
-
 
 
 
@@ -76,10 +85,9 @@ def ordenLista(l: List[Int]): List[Int] = {
 
 def partir ( l: List[Int], n: Int): (List[Int],List[Int])={
   A match{
-    case vacio() =>(Vacio(), vacio())
-    case Hoja(v) =>if(v<=x) (Hoja(v),vacio())
-                    else(vacio(), Hoja())
-    case Rama(v,izq,der) if(v==x) => (Rama(v,izq,vacio()),der)
+    case Vacio() =>(Vacio(), Vacio())
+    case Hoja(v) =>if(v<=x) (Hoja(v),Vacio()) else(Vacio(), Hoja())
+    case Rama(v,izq,der) if(v==x) => (Rama(izq,Rama(v,Vacio()),der))
     case Rama(v,izq,der) if(v<=x) => val (d1,d2) = partir(der,x); (Rama(v,izq,d1),d2)
     case Rama(v,izq,der) if(v>=x) => val (i1,i2) = partir(izq,x); (i1,Rama(v,i2,der))
 
@@ -88,22 +96,83 @@ def partir ( l: List[Int], n: Int): (List[Int],List[Int])={
 
 
 
+def insertar( c
+
+
+
 // Mezclar 2 arboles ordenados
 
 
+def mezclar( A1: Arbol, A2 : Arbol ): Arbol = {
+  (A1,A2) match{
+    case( vacio(),a)=> A2
+    case(a, vacio())=> A1
+    case(Hoja(v),A2)=> insertar(A1,v)
+    case(A1,Hoja(v)=> insertar(A2,v)
+  }
+}
 
 
 
 
 
 
+def mezclar( A1: Arbol, A2 : Arbol ): Arbol = {
+//  require ordenado(A1) && ordenado(A2)
+  
+  (A1,A2) match{
+    case( Vacio(),t)=> t
+    case(t, Vacio())=> t
+    case(Hoja(v),t)=> insercion(t,v)
+    case(A1,Hoja(v))=> insercion(t,v)
+    case(Rama(v,izq,der),v) => {val (t1,t2) = partir(t,v);
+                                 Rama(mezclar(t1,izq),mezclar(t2,der))
+    }
+  }
+}
 
 
 
+def ordenado( a: Arbol) : Arbol = {
+  a match{
+    case vacio() => vacio()
+    case Hoja() => Hoja(v)
+    case Rama(v,izq,der) => Insertar(Mezclar(ordenado(izq),ordenador(der)),v)
+  }
+}
+
+Rama(23,Rama(15,Rama(21,Hoja(7),Hoja(6)),Hoja(24)),Rama(22,Vacio(),Hoja(20)))
 
 
 
+// dado un arbol ordenado y un numero, si aparece devolver el sub arbol
 
+
+def insercion(a: Arbol, x:Int):ARbol={
+  a match{
+    case Vacio()=> Hoja(x)
+    case Hoja(v) => if(x>=v){Rama(v,vacio(),Hoja(x))}else{Rama(v,Hoja(x),Vacio())}
+    case Rama(v,i,d) => if(x>v){Rama(v,i,insercion(d,x)} else{Rama(v,insercion(i,x),d}
+  }
+}
+
+
+/*
+ Propiedasdes
+ 
+ tamaño:
+ 	tamaño de las particiones sumadas es igual al tamaño del arbol original
+ 	
+ 	tamaño de la mezcla es igual a la suma de los tamaños mezclados
+ 	
+ 	tamaño no varia al ordenar
+ 	
+ 	
+ 	profundidad:
+ 		la profundidad del arbol ordenado y la profundidad del arbol sin ordenar son iguales
+ 		
+ 		
+ */
 
 
 
