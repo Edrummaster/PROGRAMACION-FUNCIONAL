@@ -173,6 +173,10 @@ def insercion(a: Arbol, x:Int):ARbol={
  		
  		
  */
+ 
+ 
+ //eliminar un valor de un arbol ordenado
+ 
 
 
 
